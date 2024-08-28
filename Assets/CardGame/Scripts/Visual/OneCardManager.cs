@@ -22,14 +22,6 @@ public class OneCardManager : MonoBehaviour
     public Image CardFaceGlowImage;
     public Image CardBackGlowImage;
 
-    void Awake()
-    {
-        if (cardAsset != null)
-        {
-            ReadCardFromAsset();
-        }
-    }
-
     private bool canBePlayedNow = false;
     public bool CanBePlayedNow
     {
@@ -43,6 +35,14 @@ public class OneCardManager : MonoBehaviour
             canBePlayedNow = value;
 
             CardFaceGlowImage.enabled = value;
+        }
+    }
+
+    void Awake()
+    {
+        if (cardAsset != null)
+        {
+            ReadCardFromAsset();
         }
     }
 

@@ -56,7 +56,7 @@ public class CardLogic: IIdentifiable
         // and attach it to 
         if (ca.SpellScriptName!= null && ca.SpellScriptName!= "")
         {
-            effect = System.Activator.CreateInstance(System.Type.GetType(ca.SpellScriptName)) as SpellEffect;
+            effect = Activator.CreateInstance(Type.GetType(ca.SpellScriptName)) as SpellEffect;
         }
         // add this card to a dictionary with its ID as a key
         CardsCreatedThisGame.Add(UniqueCardID, this);

@@ -22,8 +22,12 @@ public class BetterCardRotation : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (!cardFront||!cardBack) 
+        {
+            return;
+        }
         var frontFacingCamera = IsCardFrontFacingCamera();
-        
+
         cardFront.SetActive(frontFacingCamera);
         cardBack.SetActive(!frontFacingCamera);
     }

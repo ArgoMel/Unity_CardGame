@@ -69,24 +69,27 @@ public class CircleOutline : ModifiedShadow
     public override void ModifyVertices(List<UIVertex> verts)
     {
         if (!IsActive())
+        {
             return;
-
+        }
         var total = (m_firstSample * 2 + m_sampleIncrement * (m_circleCount - 1)) * m_circleCount / 2;
         var neededCapacity = verts.Count * (total + 1);
         if (verts.Capacity < neededCapacity)
+        {
             verts.Capacity = neededCapacity;
+        }
         var original = verts.Count;
         var count = 0;
         var sampleCount = m_firstSample;
         var dx = effectDistance.x / circleCount;
         var dy = effectDistance.y / circleCount;
-        for (int i = 1; i <= m_circleCount; i++)
+        for (int i = 1; i <= m_circleCount; ++i)
         {
             var rx = dx * i;
             var ry = dy * i;
             var radStep = 2 * Mathf.PI / sampleCount;
             var rad = (i % 2) * radStep * 0.5f;
-            for (int j = 0; j < sampleCount; j++)
+            for (int j = 0; j < sampleCount; ++j)
             {
                 var next = count + original;
                 ApplyShadow(verts, effectColor, count, next, rx * Mathf.Cos(rad), ry * Mathf.Sin(rad));
