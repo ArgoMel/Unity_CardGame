@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class PlayerPortraitVisual : MonoBehaviour {
-
+public class PlayerPortraitVisual : MonoBehaviour 
+{
     public CharacterAsset charAsset;
     [Header("Text Component References")]
     //public Text NameText;
@@ -17,8 +16,10 @@ public class PlayerPortraitVisual : MonoBehaviour {
 
     void Awake()
 	{
-		if(charAsset != null)
-			ApplyLookFromAsset();
+        if (charAsset != null)
+        {
+            ApplyLookFromAsset();
+        }
 	}
 	
 	public void ApplyLookFromAsset()
@@ -31,7 +32,6 @@ public class PlayerPortraitVisual : MonoBehaviour {
 
         HeroPowerBackgroundImage.color = charAsset.HeroPowerBGTint;
         PortraitBackgroundImage.color = charAsset.AvatarBGTint;
-
     }
 
     public void TakeDamage(int amount, int healthAfter)
@@ -50,7 +50,4 @@ public class PlayerPortraitVisual : MonoBehaviour {
         s.PrependInterval(2f);
         s.OnComplete(() => GlobalSettings.Instance.GameOverPanel.SetActive(true));
     }
-
-
-
 }

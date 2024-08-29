@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class DraggableTestWithActions : MonoBehaviour {
-
+public class DraggableTestWithActions : MonoBehaviour 
+{
     public bool UsePointerDisplacement = true;
     // PRIVATE FIELDS
     // a reference to a DraggingActionsTest script
@@ -23,6 +22,18 @@ public class DraggableTestWithActions : MonoBehaviour {
         da = GetComponent<DraggingActionsTest>();
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        if (dragging)
+        {
+            Vector3 mousePos = MouseInWorldCoords();
+            da.OnDraggingInUpdate();
+            //Debug.Log(mousePos);
+            transform.position = new Vector3(mousePos.x - pointerDisplacement.x, mousePos.y - pointerDisplacement.y, transform.position.z);
+        }
+    }
+
     void OnMouseDown()
     {
         if (da.CanDrag)
@@ -32,21 +43,13 @@ public class DraggableTestWithActions : MonoBehaviour {
             da.OnStartDrag();
             zDisplacement = -Camera.main.transform.position.z + transform.position.z;
             if (UsePointerDisplacement)
+            {
                 pointerDisplacement = -transform.position + MouseInWorldCoords();
+            }
             else
+            {
                 pointerDisplacement = Vector3.zero;
-        }
-    }
-
-    // Update is called once per frame
-    void Update ()
-    {
-        if (dragging)
-        { 
-            Vector3 mousePos = MouseInWorldCoords();
-            da.OnDraggingInUpdate();
-            //Debug.Log(mousePos);
-            transform.position = new Vector3(mousePos.x - pointerDisplacement.x, mousePos.y - pointerDisplacement.y, transform.position.z);   
+            }
         }
     }
 

@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 [ExecuteInEditMode]
-public class ManaPoolVisual : MonoBehaviour {
-
+public class ManaPoolVisual : MonoBehaviour 
+{
     public int TestFullCrystals;
     public int TestTotalCrystalsThisTurn;
 
@@ -21,21 +20,31 @@ public class ManaPoolVisual : MonoBehaviour {
             //Debug.Log("Changed total mana to: " + value);
 
             if (value > Crystals.Length)
+            {
                 totalCrystals = Crystals.Length;
+            }
             else if (value < 0)
+            {
                 totalCrystals = 0;
+            }
             else
+            {
                 totalCrystals = value;
+            }
 
-            for (int i = 0; i < Crystals.Length; i++)
+            for (int i = 0; i < Crystals.Length; ++i)
             {
                 if (i < totalCrystals)
                 {
                     if (Crystals[i].color == Color.clear)
+                    {
                         Crystals[i].color = Color.gray;
+                    }
                 }
                 else
+                {
                     Crystals[i].color = Color.clear;
+                }
             }
 
             // update the text
@@ -53,23 +62,32 @@ public class ManaPoolVisual : MonoBehaviour {
             //Debug.Log("Changed mana this turn to: " + value);
 
             if (value > totalCrystals)
+            {
                 availableCrystals = totalCrystals;
+            }
             else if (value < 0)
+            {
                 availableCrystals = 0;
+            }
             else
+            {
                 availableCrystals = value;
+            }
 
-            for (int i = 0; i < totalCrystals; i++)
+            for (int i = 0; i < totalCrystals; ++i)
             {
                 if (i < availableCrystals)
+                {
                     Crystals[i].color = Color.white;
+                }
                 else
+                {
                     Crystals[i].color = Color.gray;
+                }
             }
 
             // update the text
             ProgressText.text = string.Format("{0}/{1}", availableCrystals.ToString(), totalCrystals.ToString());
-
         }
     }
 
@@ -81,5 +99,4 @@ public class ManaPoolVisual : MonoBehaviour {
             AvailableCrystals = TestFullCrystals;
         }
     }
-	
 }

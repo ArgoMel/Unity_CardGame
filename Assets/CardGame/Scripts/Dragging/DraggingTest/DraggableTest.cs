@@ -14,25 +14,29 @@ public class DraggableTest : MonoBehaviour
     // distance from camera to mouse on Z axis 
     private float zDisplacement;
 
+    // Update is called once per frame
+    void Update()
+    {
+        if (dragging)
+        {
+            Vector3 mousePos = MouseInWorldCoords();
+            //Debug.Log(mousePos);
+            transform.position = new Vector3(mousePos.x - pointerDisplacement.x, mousePos.y - pointerDisplacement.y, transform.position.z);
+        }
+    }
+
     // MONOBEHAVIOUR METHODS
     void OnMouseDown()
     {
         dragging = true;
         zDisplacement = -Camera.main.transform.position.z + transform.position.z;
         if (UsePointerDisplacement)
+        {
             pointerDisplacement = -transform.position + MouseInWorldCoords();
+        }
         else
+        {
             pointerDisplacement = Vector3.zero;
-    }
-
-    // Update is called once per frame
-    void Update ()
-    {
-        if (dragging)
-        { 
-            Vector3 mousePos = MouseInWorldCoords();
-            //Debug.Log(mousePos);
-            transform.position = new Vector3(mousePos.x - pointerDisplacement.x, mousePos.y - pointerDisplacement.y, transform.position.z);   
         }
     }
 
@@ -52,5 +56,4 @@ public class DraggableTest : MonoBehaviour
         screenMousePos.z = zDisplacement;
         return Camera.main.ScreenToWorldPoint(screenMousePos);
     }
-
 }

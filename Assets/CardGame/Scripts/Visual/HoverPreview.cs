@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using DG.Tweening;
 
 public class HoverPreview: MonoBehaviour
@@ -66,7 +65,6 @@ public class HoverPreview: MonoBehaviour
     void OnMouseExit()
     {
         OverCollider = false;
-
         if (!PreviewingSomeCard())
         {
             StopAllPreviews();
@@ -119,8 +117,7 @@ public class HoverPreview: MonoBehaviour
             {
                 currentlyViewing.TurnThisOffWhenPreviewing.SetActive(true);
             }
-        }
-         
+        }       
     }
 
     private static bool PreviewingSomeCard()

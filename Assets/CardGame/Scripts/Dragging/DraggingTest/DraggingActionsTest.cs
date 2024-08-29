@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class DraggingActionsTest : MonoBehaviour {
-
+public abstract class DraggingActionsTest : MonoBehaviour 
+{
     public abstract void OnStartDrag();
 
     public abstract void OnEndDrag();

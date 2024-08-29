@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 // place first and last elements in children array manually
 // others will be placed automatically with equal distances between first and last elements
-public class SameDistanceChildren : MonoBehaviour {
-
+public class SameDistanceChildren : MonoBehaviour 
+{
     public Transform[] Children;
 
 	// Use this for initialization
@@ -20,11 +19,9 @@ public class SameDistanceChildren : MonoBehaviour {
 
         Vector3 Dist = new Vector3(XDist, YDist, ZDist);
 
-        for (int i = 1; i < Children.Length; i++)
+        for (int i = 1; i < Children.Length; ++i)
         {
             Children[i].transform.position = Children[i - 1].transform.position + Dist;
         }
 	}
-	
-	
 }

@@ -32,7 +32,6 @@ public class GlobalSettings: MonoBehaviour
 
     public Dictionary<AreaPosition, Player> Players = new Dictionary<AreaPosition, Player>();
 
-
     // SINGLETON
     public static GlobalSettings Instance;
 
