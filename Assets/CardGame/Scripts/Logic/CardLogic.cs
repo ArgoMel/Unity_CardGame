@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
 
 [System.Serializable]
@@ -50,7 +48,6 @@ public class CardLogic: IIdentifiable
         this.ca = ca;
         // get unique int ID
         UniqueCardID = IDFactory.GetUniqueID();
-        //UniqueCardID = IDFactory.GetUniqueID();
         ResetManaCost();
         // create an instance of SpellEffect with a name from our CardAsset
         // and attach it to 

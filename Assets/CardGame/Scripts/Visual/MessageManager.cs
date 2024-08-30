@@ -36,9 +36,13 @@ public class MessageManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Y))
+        {
             ShowMessage("Your Turn", 3f);
-        
+        }
+
         if (Input.GetKeyDown(KeyCode.E))
+        {
             ShowMessage("Enemy Turn", 3f);
+        }
     }
 }

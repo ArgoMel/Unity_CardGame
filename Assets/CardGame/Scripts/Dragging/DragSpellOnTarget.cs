@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
-using DG.Tweening;
 
-public class DragSpellOnTarget : DraggingActions {
-
+public class DragSpellOnTarget : DraggingActions 
+{
     public TargetingOptions Targets = TargetingOptions.AllCharacters;
     private SpriteRenderer sr;
     private LineRenderer lr;
@@ -33,7 +31,6 @@ public class DragSpellOnTarget : DraggingActions {
         lr.sortingLayerName = "AboveEverything";
         triangle = transform.Find("Triangle");
         triangleSR = triangle.GetComponent<SpriteRenderer>();
-
 
         manager = GetComponentInParent<OneCardManager>();
         whereIsThisCard = GetComponentInParent<WhereIsTheCardOrCreature>();
@@ -73,7 +70,6 @@ public class DragSpellOnTarget : DraggingActions {
             lr.enabled = false;
             triangleSR.enabled = false;
         }
-
     }
 
     public override void OnEndDrag()
@@ -104,11 +100,15 @@ public class DragSpellOnTarget : DraggingActions {
         if (Target != null)
         {
             // determine an owner of this card
-            Player owner = null; 
+            Player owner;
             if (tag.Contains("Low"))
+            {
                 owner = GlobalSettings.Instance.LowPlayer;
+            }
             else
+            {
                 owner = GlobalSettings.Instance.TopPlayer;
+            }
 
             // check of we should play this spell depending on targeting options
             int targetID = Target.GetComponent<IDHolder>().UniqueID;
@@ -129,8 +129,8 @@ public class DragSpellOnTarget : DraggingActions {
                     if (Target.tag.Contains("Creature") || Target.tag.Contains("Player"))
                     {
                         // had to check that target is not a card
-                        if ((tag.Contains("Low") && Target.tag.Contains("Top"))
-                           || (tag.Contains("Top") && Target.tag.Contains("Low")))
+                        if ((tag.Contains("Low") && Target.tag.Contains("Top")) ||
+                            (tag.Contains("Top") && Target.tag.Contains("Low")))
                         {
                             owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
                             targetValid = true;
@@ -141,8 +141,8 @@ public class DragSpellOnTarget : DraggingActions {
                     if (Target.tag.Contains("Creature"))
                     {
                         // had to check that target is not a card or a player
-                        if ((tag.Contains("Low") && Target.tag.Contains("Top"))
-                            || (tag.Contains("Top") && Target.tag.Contains("Low")))
+                        if ((tag.Contains("Low") && Target.tag.Contains("Top")) ||
+                            (tag.Contains("Top") && Target.tag.Contains("Low")))
                         {
                             owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
                             targetValid = true;
@@ -153,8 +153,8 @@ public class DragSpellOnTarget : DraggingActions {
                     if (Target.tag.Contains("Creature") || Target.tag.Contains("Player"))
                     {
                         // had to check that target is not a card
-                        if ((tag.Contains("Low") && Target.tag.Contains("Low"))
-                            || (tag.Contains("Top") && Target.tag.Contains("Top")))
+                        if ((tag.Contains("Low") && Target.tag.Contains("Low")) ||
+                            (tag.Contains("Top") && Target.tag.Contains("Top")))
                         {
                             owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
                             targetValid = true;
@@ -165,8 +165,8 @@ public class DragSpellOnTarget : DraggingActions {
                     if (Target.tag.Contains("Creature"))
                     {
                         // had to check that target is not a card or a player
-                        if ((tag.Contains("Low") && Target.tag.Contains("Low"))
-                            || (tag.Contains("Top") && Target.tag.Contains("Top")))
+                        if ((tag.Contains("Low") && Target.tag.Contains("Low")) ||
+                            (tag.Contains("Top") && Target.tag.Contains("Top")))
                         {
                             owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
                             targetValid = true;
@@ -192,7 +192,6 @@ public class DragSpellOnTarget : DraggingActions {
         sr.enabled = false;
         lr.enabled = false;
         triangleSR.enabled = false;
-
     }
 
     // NOT USED IN THIS SCRIPT

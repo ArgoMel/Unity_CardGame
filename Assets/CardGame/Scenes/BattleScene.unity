@@ -2982,11 +2982,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224000013608011420, guid: eab9cb833a203ab45b6748872af6c306, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224000013608011420, guid: eab9cb833a203ab45b6748872af6c306, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 147.96512
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

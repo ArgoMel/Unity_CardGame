@@ -27,11 +27,17 @@ public class Command
     public static void CommandExecutionComplete()
     {
         if (CommandQueue.Count > 0)
+        {
             PlayFirstCommandFromQueue();
+        }
         else
+        {
             playingQueue = false;
+        }
         if (TurnManager.Instance.whoseTurn != null)
+        {
             TurnManager.Instance.whoseTurn.HighlightPlayableCards();
+        }
     }
 
     public static void PlayFirstCommandFromQueue()
@@ -45,7 +51,9 @@ public class Command
         foreach (Command c in CommandQueue)
         {
             if (c is DrawACardCommand)
+            {
                 return true;
+            }
         }
         return false;
     }

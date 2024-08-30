@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 public class OneCreatureManager : MonoBehaviour 
@@ -12,12 +11,6 @@ public class OneCreatureManager : MonoBehaviour
     [Header("Image References")]
     public Image CreatureGraphicImage;
     public Image CreatureGlowImage;
-
-    void Awake()
-    {
-        if (cardAsset != null)
-            ReadCreatureFromAsset();
-    }
 
     private bool canAttackNow = false;
     public bool CanAttackNow
@@ -32,6 +25,14 @@ public class OneCreatureManager : MonoBehaviour
             canAttackNow = value;
 
             CreatureGlowImage.enabled = value;
+        }
+    }
+
+    void Awake()
+    {
+        if (cardAsset != null)
+        {
+            ReadCreatureFromAsset();
         }
     }
 
