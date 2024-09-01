@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class PlayerTurnMaker : TurnMaker 
+﻿public class PlayerTurnMaker : TurnMaker 
 {
     public override void OnTurnStart()
     {

@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
 using DG.Tweening;
 
 // this class will take care of switching turns and counting down time until the turn expires
@@ -40,8 +38,7 @@ public class TurnManager : MonoBehaviour
                 whoseTurn.HighlightPlayableCards();
             }
             // remove highlights for opponent.
-            whoseTurn.otherPlayer.HighlightPlayableCards(true);
-                
+            whoseTurn.otherPlayer.HighlightPlayableCards(true);            
         }
     }
 
@@ -55,6 +52,14 @@ public class TurnManager : MonoBehaviour
     void Start()
     {
         OnGameStart();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            EndTurn();
+        }
     }
 
     public void OnGameStart()
@@ -104,14 +109,6 @@ public class TurnManager : MonoBehaviour
                 whoGoesSecond.GetACardNotFromDeck(CoinCard);
                 new StartATurnCommand(whoGoesFirst).AddToQueue();
             });
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            EndTurn();
-        }
     }
 
     // FOR TEST PURPOSES ONLY

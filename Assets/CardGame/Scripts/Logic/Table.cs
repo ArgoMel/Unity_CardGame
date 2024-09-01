@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class Table : MonoBehaviour 
@@ -9,6 +8,5 @@ public class Table : MonoBehaviour
     public void PlaceCreatureAt(int index, CreatureLogic creature)
     {
         CreaturesOnTable.Insert(index, creature);
-    }
-        
+    } 
 }

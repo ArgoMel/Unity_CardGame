@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public abstract class TurnMaker : MonoBehaviour {
-
+public abstract class TurnMaker : MonoBehaviour 
+{
     protected Player p;
 
     void Awake()
@@ -15,5 +14,4 @@ public abstract class TurnMaker : MonoBehaviour {
         // add one mana crystal to the pool;
         p.OnTurnStart();
     }
-
 }

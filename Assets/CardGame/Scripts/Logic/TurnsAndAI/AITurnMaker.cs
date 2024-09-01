@@ -2,9 +2,8 @@
 using System.Collections;
 
 //this class will take all decisions for AI. 
-
-public class AITurnMaker: TurnMaker {
-
+public class AITurnMaker: TurnMaker 
+{
     public override void OnTurnStart()
     {
         base.OnTurnStart();
@@ -19,8 +18,9 @@ public class AITurnMaker: TurnMaker {
     {
         bool strategyAttackFirst = false;
         if (Random.Range(0, 2) == 0)
+        {
             strategyAttackFirst = true;
-
+        }
         while (MakeOneAIMove(strategyAttackFirst))
         {
             yield return null;
@@ -34,11 +34,17 @@ public class AITurnMaker: TurnMaker {
     bool MakeOneAIMove(bool attackFirst)
     {
         if (Command.CardDrawPending())
+        {
             return true;
+        }
         else if (attackFirst)
+        {
             return AttackWithACreature() || PlayACardFromHand() || UseHeroPower();
-        else 
+        }
+        else
+        {
             return PlayACardFromHand() || AttackWithACreature() || UseHeroPower();
+        }
     }
 
     bool PlayACardFromHand()
@@ -98,9 +104,11 @@ public class AITurnMaker: TurnMaker {
                     int index = Random.Range(0, p.otherPlayer.table.CreaturesOnTable.Count);
                     CreatureLogic targetCreature = p.otherPlayer.table.CreaturesOnTable[index];
                     cl.AttackCreature(targetCreature);
-                }                    
+                }
                 else
+                {
                     cl.GoFace();
+                }
                 
                 InsertDelay(1f);
                 //Debug.Log("AI attacked with creature");
@@ -114,5 +122,4 @@ public class AITurnMaker: TurnMaker {
     {
         new DelayCommand(delay).AddToQueue();
     }
-
 }

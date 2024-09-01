@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Player : MonoBehaviour, ICharacter
 {
@@ -27,7 +26,6 @@ public class Player : MonoBehaviour, ICharacter
     // this value used exclusively for our coin spell
     private int bonusManaThisTurn = 0;
 
-
     // PROPERTIES 
     // this property is a part of interface ICharacter
     public int ID
@@ -41,9 +39,13 @@ public class Player : MonoBehaviour, ICharacter
         get
         {
             if (Players[0] == this)
+            {
                 return Players[1];
+            }
             else
+            {
                 return Players[0];
+            }
         }
     }
 
@@ -55,11 +57,17 @@ public class Player : MonoBehaviour, ICharacter
         set
         {
             if (value < 0)
+            {
                 manaThisTurn = 0;
+            }
             else if (value > PArea.ManaBar.Crystals.Length)
+            {
                 manaThisTurn = PArea.ManaBar.Crystals.Length;
+            }
             else
+            {
                 manaThisTurn = value;
+            }
             //PArea.ManaBar.TotalCrystals = manaThisTurn;
             new UpdateManaCrystalsCommand(this, manaThisTurn, manaLeft).AddToQueue();
         }
@@ -74,17 +82,25 @@ public class Player : MonoBehaviour, ICharacter
         set
         {
             if (value < 0)
+            {
                 manaLeft = 0;
+            }
             else if (value > PArea.ManaBar.Crystals.Length)
+            {
                 manaLeft = PArea.ManaBar.Crystals.Length;
+            }
             else
+            {
                 manaLeft = value;
+            }
             
             //PArea.ManaBar.AvailableCrystals = manaLeft;
             new UpdateManaCrystalsCommand(this, ManaThisTurn, manaLeft).AddToQueue();
             //Debug.Log(ManaLeft);
             if (TurnManager.Instance.whoseTurn == this)
+            {
                 HighlightPlayableCards();
+            }
         }
     }
 
@@ -95,11 +111,17 @@ public class Player : MonoBehaviour, ICharacter
         set
         {
             if (value > charAsset.MaxHealth)
+            {
                 health = charAsset.MaxHealth;
+            }
             else
+            {
                 health = value;
+            }
             if (value <= 0)
-                Die(); 
+            {
+                Die();
+            }
         }
     }
 
@@ -109,8 +131,6 @@ public class Player : MonoBehaviour, ICharacter
     //public event VoidWithNoArguments SpellPlayedEvent;
     //public event VoidWithNoArguments StartTurnEvent;
     public event VoidWithNoArguments EndTurnEvent;
-
-
 
     // ALL METHODS
     void Awake()
@@ -130,14 +150,15 @@ public class Player : MonoBehaviour, ICharacter
         ManaThisTurn++;
         ManaLeft = ManaThisTurn;
         foreach (CreatureLogic cl in table.CreaturesOnTable)
+        {
             cl.OnTurnStart();
+        }
         PArea.HeroPower.WasUsedThisTurn = false;
     }
 
     public void OnTurnEnd()
     {
-        if(EndTurnEvent != null)
-            EndTurnEvent.Invoke();
+        EndTurnEvent?.Invoke();
         ManaThisTurn -= bonusManaThisTurn;
         bonusManaThisTurn = 0;
         GetComponent<TurnMaker>().StopAllCoroutines();
@@ -207,7 +228,9 @@ public class Player : MonoBehaviour, ICharacter
     public void PlayASpellFromHand(int SpellCardUniqueID, int TargetUniqueID)
     {
         if (TargetUniqueID < 0)
+        {
             PlayASpellFromHand(CardLogic.CardsCreatedThisGame[SpellCardUniqueID], null);
+        }
         else if (TargetUniqueID == ID)
         {
             PlayASpellFromHand(CardLogic.CardsCreatedThisGame[SpellCardUniqueID], this);
@@ -231,7 +254,9 @@ public class Player : MonoBehaviour, ICharacter
         ManaLeft -= playedCard.CurrentManaCost;
         // cause effect instantly:
         if (playedCard.effect != null)
+        {
             playedCard.effect.ActivateEffect(playedCard.ca.specialSpellAmount, target);
+        }
         else
         {
             Debug.LogWarning("No effect found on card " + playedCard.ca.name);
@@ -264,7 +289,9 @@ public class Player : MonoBehaviour, ICharacter
         new PlayACreatureCommand(playedCard, this, tablePos, newCreature.UniqueCreatureID).AddToQueue();
         // cause battlecry Effect
         if (newCreature.effect != null)
+        {
             newCreature.effect.WhenACreatureIsPlayed();
+        }
         // remove this card from hand
         hand.CardsInHand.Remove(playedCard);
         HighlightPlayableCards();
@@ -295,15 +322,19 @@ public class Player : MonoBehaviour, ICharacter
         foreach (CardLogic cl in hand.CardsInHand)
         {
             GameObject g = IDHolder.GetGameObjectWithID(cl.UniqueCardID);
-            if (g!=null)
+            if (g != null)
+            {
                 g.GetComponent<OneCardManager>().CanBePlayedNow = (cl.CurrentManaCost <= ManaLeft) && !removeAllHighlights;
+            }
         }
 
         foreach (CreatureLogic crl in table.CreaturesOnTable)
         {
             GameObject g = IDHolder.GetGameObjectWithID(crl.UniqueCreatureID);
-            if(g!= null)
+            if (g != null)
+            {
                 g.GetComponent<OneCreatureManager>().CanAttackNow = (crl.AttacksLeftThisTurn > 0) && !removeAllHighlights;
+            }
         }   
         // highlight hero power
         PArea.HeroPower.Highlighted = (!usedHeroPowerThisTurn) && (ManaLeft > 1) && !removeAllHighlights;
@@ -341,6 +372,4 @@ public class Player : MonoBehaviour, ICharacter
             PArea.AllowedToControlThisPlayer = true;
         }
     }
-       
-        
 }
