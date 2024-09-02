@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HeroPowerDrawCardTakeDamage : SpellEffect {
-
+public class HeroPowerDrawCardTakeDamage : SpellEffect 
+{
     public override void ActivateEffect(int specialAmount = 0, ICharacter target = null)
     {
         // Take 2 damage
@@ -10,6 +10,5 @@ public class HeroPowerDrawCardTakeDamage : SpellEffect {
         TurnManager.Instance.whoseTurn.Health -= 2;
         // Draw a card
         TurnManager.Instance.whoseTurn.DrawACard();
-
     }
 }

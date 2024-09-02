@@ -24,6 +24,4 @@ public class BiteOwner : CreatureEffect
         new DealDamageCommand(owner.PlayerID, specialAmount, owner.Health - specialAmount).AddToQueue();
         owner.Health -= specialAmount;
     }
-
-
 }

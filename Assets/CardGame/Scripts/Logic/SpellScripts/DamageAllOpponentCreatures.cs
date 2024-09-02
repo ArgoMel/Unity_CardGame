@@ -1,8 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class DamageAllOpponentCreatures : SpellEffect {
-
+﻿public class DamageAllOpponentCreatures : SpellEffect 
+{
     public override void ActivateEffect(int specialAmount = 0, ICharacter target = null)
     {
         CreatureLogic[] CreaturesToDamage = TurnManager.Instance.whoseTurn.otherPlayer.table.CreaturesOnTable.ToArray();

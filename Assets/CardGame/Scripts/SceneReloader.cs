@@ -2,8 +2,8 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class SceneReloader: MonoBehaviour {
-
+public class SceneReloader: MonoBehaviour
+{
     public void ReloadScene()
     {
         // Command has some static members, so let`s make sure that there are no commands in the Queue

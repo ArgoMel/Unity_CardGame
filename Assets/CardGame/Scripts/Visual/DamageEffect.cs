@@ -40,7 +40,7 @@ public class DamageEffect : MonoBehaviour
             return;
         }
         // Instantiate a DamageEffect from prefab
-        GameObject newDamageEffect = GameObject.Instantiate(GlobalSettings.Instance.DamageEffectPrefab, position, Quaternion.identity) as GameObject;
+        GameObject newDamageEffect = Instantiate(GlobalSettings.Instance.DamageEffectPrefab, position, Quaternion.identity);
         // Get DamageEffect component in this new game object
         DamageEffect de = newDamageEffect.GetComponent<DamageEffect>();
         // Change the amount text to reflect the amount of damage dealt

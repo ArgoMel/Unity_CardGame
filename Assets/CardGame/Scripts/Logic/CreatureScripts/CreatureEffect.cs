@@ -26,6 +26,4 @@ public abstract class CreatureEffect
 
     // DEATHRATTLE
     public virtual void WhenACreatureDies(){}
-
-
 }
