@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using DG.Tweening;
 
-public class DragCreatureOnTable : DraggingActions {
-
+public class DragCreatureOnTable : DraggingActions 
+{
     private int savedHandSlot;
     private WhereIsTheCardOrCreature whereIsCard;
     private IDHolder idScript;
@@ -34,7 +33,6 @@ public class DragCreatureOnTable : DraggingActions {
         tempState = whereIsCard.VisualState;
         whereIsCard.VisualState = VisualStates.Dragging;
         whereIsCard.BringToFront();
-
     }
 
     public override void OnDraggingInUpdate()
@@ -43,8 +41,7 @@ public class DragCreatureOnTable : DraggingActions {
     }
 
     public override void OnEndDrag()
-    {
-        
+    {    
         // 1) Check if we are holding a card over the table
         if (DragSuccessful())
         {

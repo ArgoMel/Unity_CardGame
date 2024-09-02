@@ -1,9 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
-
-public class ShowMessageCommand : Command {
-
+﻿public class ShowMessageCommand : Command
+{
     string message;
     float duration;
 

@@ -1,31 +1,25 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 
 public class TableVisual : MonoBehaviour 
 {
-    // PUBLIC FIELDS
-
     // an enum that mark to whish caracter this table belongs. The alues are - Top or Low
     public AreaPosition owner;
 
     // a referense to a game object that marks positions where we should put new Creatures
     public SameDistanceChildren slots;
 
-    // PRIVATE FIELDS
-
     // list of all the creature cards on the table as GameObjects
     private List<GameObject> CreaturesOnTable = new List<GameObject>();
 
     // are we hovering over this table`s collider with a mouse
     private bool cursorOverThisTable = false;
-
-    // A 3D collider attached to this game object
-    private BoxCollider col;
-
-    // PROPERTIES
-
+    // returns true only if we are hovering over this table`s collider
+    public bool CursorOverThisTable
+    {
+        get { return cursorOverThisTable; }
+    }
     // returns true if we are hovering over any player`s table collider
     public static bool CursorOverSomeTable
     {
@@ -36,13 +30,8 @@ public class TableVisual : MonoBehaviour
         }
     }
 
-    // returns true only if we are hovering over this table`s collider
-    public bool CursorOverThisTable
-    {
-        get{ return cursorOverThisTable; }
-    }
-
-    // METHODS
+    // A 3D collider attached to this game object
+    private BoxCollider col;
 
     // MONOBEHAVIOUR METHODS (mouse over collider detection)
     void Awake()
@@ -64,7 +53,9 @@ public class TableVisual : MonoBehaviour
         {
             // check if the collider that we hit is the collider on this GameObject
             if (h.collider == col)
+            {
                 passedThroughTableCollider = true;
+            }
         }
         cursorOverThisTable = passedThroughTableCollider;
     }
@@ -73,7 +64,7 @@ public class TableVisual : MonoBehaviour
     public void AddCreatureAtIndex(CardAsset ca, int UniqueID ,int index)
     {
         // create a new creature from prefab
-        GameObject creature = GameObject.Instantiate(GlobalSettings.Instance.CreaturePrefab, slots.Children[index].transform.position, Quaternion.identity) as GameObject;
+        GameObject creature = Instantiate(GlobalSettings.Instance.CreaturePrefab, slots.Children[index].transform.position, Quaternion.identity);
 
         // apply the look from CardAsset
         OneCreatureManager manager = creature.GetComponent<OneCreatureManager>();
@@ -82,8 +73,10 @@ public class TableVisual : MonoBehaviour
 
         // add tag according to owner
         foreach (Transform t in creature.GetComponentsInChildren<Transform>())
-            t.tag = owner.ToString()+"Creature";
-        
+        {
+            t.tag = owner.ToString() + "Creature";
+        }
+
         // parent a new creature gameObject to table slots
         creature.transform.SetParent(slots.transform);
 
@@ -94,9 +87,13 @@ public class TableVisual : MonoBehaviour
         WhereIsTheCardOrCreature w = creature.GetComponent<WhereIsTheCardOrCreature>();
         w.Slot = index;
         if (owner == AreaPosition.Low)
+        {
             w.VisualState = VisualStates.LowTable;
+        }
         else
+        {
             w.VisualState = VisualStates.TopTable;
+        }
 
         // add our unique ID to this creature
         IDHolder id = creature.AddComponent<IDHolder>();
@@ -110,7 +107,6 @@ public class TableVisual : MonoBehaviour
         Command.CommandExecutionComplete();
     }
 
-
     // returns an index for a new creature based on mousePosition
     // included for placing a new creature to any positon on the table
     public int TablePosForNewCreature(float MouseX)
@@ -118,13 +114,21 @@ public class TableVisual : MonoBehaviour
         // if there are no creatures or if we are pointing to the right of all creatures with a mouse.
         // right - because the table slots are flipped and 0 is on the right side.
         if (CreaturesOnTable.Count == 0 || MouseX > slots.Children[0].transform.position.x)
-            return 0;
-        else if (MouseX < slots.Children[CreaturesOnTable.Count - 1].transform.position.x) // cursor on the left relative to all creatures on the table
-            return CreaturesOnTable.Count;
-        for (int i = 0; i < CreaturesOnTable.Count; i++)
         {
-            if (MouseX < slots.Children[i].transform.position.x && MouseX > slots.Children[i + 1].transform.position.x)
+            return 0;
+        }
+        // cursor on the left relative to all creatures on the table
+        else if (MouseX < slots.Children[CreaturesOnTable.Count - 1].transform.position.x) 
+        {
+            return CreaturesOnTable.Count;
+        }
+        for (int i = 0; i < CreaturesOnTable.Count; ++i)
+        {
+            if (MouseX < slots.Children[i].transform.position.x && 
+                MouseX > slots.Children[i + 1].transform.position.x)
+            {
                 return i + 1;
+            }
         }
         Debug.Log("Suspicious behavior. Reached end of TablePosForNewCreature method. Returning 0");
         return 0;
@@ -158,10 +162,13 @@ public class TableVisual : MonoBehaviour
     {
         float posX;
         if (CreaturesOnTable.Count > 0)
+        {
             posX = (slots.Children[0].transform.localPosition.x - slots.Children[CreaturesOnTable.Count - 1].transform.localPosition.x) / 2f;
+        }
         else
+        {
             posX = 0f;
-
+        }
         slots.gameObject.transform.DOLocalMoveX(posX, 0.3f);  
     }
 
@@ -179,5 +186,4 @@ public class TableVisual : MonoBehaviour
             // g.GetComponent<WhereIsTheCardOrCreature>().SetTableSortingOrder() = CreaturesOnTable.IndexOf(g);
         }
     }
-
 }

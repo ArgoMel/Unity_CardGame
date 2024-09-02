@@ -33,8 +33,10 @@ public class RopeTimer : MonoBehaviour, IEventSystemHandler
         timeTillZero = TimeForOneTurn;
 		counting = true;
         ropeIsBurning = false;
-        if (RopeGameObject!=null)
+        if (RopeGameObject != null)
+        {
             RopeGameObject.SetActive(false);
+        }
 	} 
 
 	public void StopTimer()
@@ -42,14 +44,15 @@ public class RopeTimer : MonoBehaviour, IEventSystemHandler
 		counting = false;
 	}
 	
-	// Update is called once per frame
 	void Update () 
 	{
 		if (counting) 
 		{
 			timeTillZero -= Time.deltaTime;
-            if (TimerText!=null)
+            if (TimerText != null)
+            {
                 TimerText.text = ToString();
+            }
 
             if (RopeGameObject != null)
             {
@@ -74,19 +77,21 @@ public class RopeTimer : MonoBehaviour, IEventSystemHandler
                 TimerExpired.Invoke();
 			}
 		}
-	
 	}
 
 	public override string ToString ()
 	{
 		int inSeconds = Mathf.RoundToInt (timeTillZero);
 		string justSeconds = (inSeconds % 60).ToString ();
-		if (justSeconds.Length == 1)
-			justSeconds = "0" + justSeconds;
+        if (justSeconds.Length == 1)
+        {
+            justSeconds = "0" + justSeconds;
+        }
 		string justMinutes = (inSeconds / 60).ToString ();
-		if (justMinutes.Length == 1)
-			justMinutes = "0" + justMinutes;
-
+        if (justMinutes.Length == 1)
+        {
+            justMinutes = "0" + justMinutes;
+        }
 		return string.Format ("{0}:{1}", justMinutes, justSeconds);
 	}
 }

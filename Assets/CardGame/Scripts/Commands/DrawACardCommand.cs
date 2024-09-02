@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class DrawACardCommand : Command 
+﻿public class DrawACardCommand : Command 
 {
     private Player p;
     private CardLogic cl;

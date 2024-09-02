@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 // an enum to store the info about where this object is
 public enum VisualStates
@@ -13,8 +11,8 @@ public enum VisualStates
     Dragging
 }
 
-public class WhereIsTheCardOrCreature : MonoBehaviour {
-
+public class WhereIsTheCardOrCreature : MonoBehaviour
+{
     // reference to a HoverPreview Component
     private HoverPreview hover;
 
@@ -75,7 +73,9 @@ public class WhereIsTheCardOrCreature : MonoBehaviour {
         hover = GetComponent<HoverPreview>();
         // for characters hover is attached to a child game object
         if (hover == null)
+        {
             hover = GetComponentInChildren<HoverPreview>();
+        }
         canvas = GetComponentInChildren<Canvas>();
     }
 
@@ -90,7 +90,9 @@ public class WhereIsTheCardOrCreature : MonoBehaviour {
     public void SetHandSortingOrder()
     {
         if (slot != -1)
+        {
             canvas.sortingOrder = HandSortingOrder(slot);
+        }
         canvas.sortingLayerName = "Cards";
     }
 
@@ -104,6 +106,4 @@ public class WhereIsTheCardOrCreature : MonoBehaviour {
     {
         return (-(placeInHand + 1) * 10); 
     }
-
-
 }

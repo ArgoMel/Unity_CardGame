@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public enum AreaPosition{Top, Low}
+public enum AreaPosition
+{
+    Top, 
+    Low
+}
 
 public class PlayerArea : MonoBehaviour 
 {
@@ -22,6 +25,4 @@ public class PlayerArea : MonoBehaviour
         get;
         set;
     }      
-
-
 }

@@ -13,10 +13,8 @@ public class CardLogic: IIdentifiable
     // a script of type spell effect that will be attached to this card when it`s created
     public SpellEffect effect;
 
-
     // STATIC (for managing IDs)
     public static Dictionary<int, CardLogic> CardsCreatedThisGame = new Dictionary<int, CardLogic>();
-
 
     // PROPERTIES
     public int ID
@@ -35,7 +33,9 @@ public class CardLogic: IIdentifiable
             bool fieldNotFull = true;
             // but if this is a creature, we have to check if there is room on board (table)
             if (ca.MaxHealth > 0)
+            {
                 fieldNotFull = (owner.table.CreaturesOnTable.Count < 7);
+            }
             //Debug.Log("Card: " + ca.name + " has params: ownersTurn=" + ownersTurn + "fieldNotFull=" + fieldNotFull + " hasMana=" + (CurrentManaCost <= owner.ManaLeft));
             return ownersTurn && fieldNotFull && (CurrentManaCost <= owner.ManaLeft);
         }
@@ -64,5 +64,4 @@ public class CardLogic: IIdentifiable
     {
         CurrentManaCost = ca.ManaCost;
     }
-
 }

@@ -1,8 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class StartATurnCommand : Command {
-
+﻿public class StartATurnCommand : Command 
+{
     private Player p;
 
     public StartATurnCommand(Player p)

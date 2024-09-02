@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class DragCreatureAttack : DraggingActions {
-
+public class DragCreatureAttack : DraggingActions 
+{
     // reference to the sprite with a round "Target" graphic
     private SpriteRenderer sr;
     // LineRenderer that is attached to a child game object to draw the arrow
@@ -78,8 +77,7 @@ public class DragCreatureAttack : DraggingActions {
             // if the target is not far enough from creature, do not show the arrow
             lr.enabled = false;
             triangleSR.enabled = false;
-        }
-            
+        }      
     }
 
     public override void OnEndDrag()
@@ -93,14 +91,14 @@ public class DragCreatureAttack : DraggingActions {
 
         foreach (RaycastHit h in hits)
         {
-            if ((h.transform.tag == "TopPlayer" && this.tag == "LowCreature") ||
-                (h.transform.tag == "LowPlayer" && this.tag == "TopCreature"))
+            if ((h.transform.CompareTag("TopPlayer") && this.CompareTag("LowCreature")) ||
+                (h.transform.CompareTag("LowPlayer") && this.CompareTag("TopCreature")))
             {
                 // go face
                 Target = h.transform.gameObject;
             }
-            else if ((h.transform.tag == "TopCreature" && this.tag == "LowCreature") ||
-                    (h.transform.tag == "LowCreature" && this.tag == "TopCreature"))
+            else if ((h.transform.CompareTag("TopCreature") && this.CompareTag("LowCreature")) ||
+                    (h.transform.CompareTag("LowCreature") && this.CompareTag("TopCreature")))
             {
                 // hit a creature, save parent transform
                 Target = h.transform.parent.gameObject;
@@ -128,17 +126,20 @@ public class DragCreatureAttack : DraggingActions {
                 targetValid = true;
                 CreatureLogic.CreaturesCreatedThisGame[GetComponentInParent<IDHolder>().UniqueID].AttackCreatureWithID(targetID);
                 Debug.Log("Attacking "+Target);
-            }
-                
+            }       
         }
 
         if (!targetValid)
         {
             // not a valid target, return
-            if(tag.Contains("Low"))
+            if (tag.Contains("Low"))
+            {
                 whereIsThisCreature.VisualState = VisualStates.LowTable;
+            }
             else
+            {
                 whereIsThisCreature.VisualState = VisualStates.TopTable;
+            }
             whereIsThisCreature.SetTableSortingOrder();
         }
 
@@ -147,7 +148,6 @@ public class DragCreatureAttack : DraggingActions {
         sr.enabled = false;
         lr.enabled = false;
         triangleSR.enabled = false;
-
     }
 
     // NOT USED IN THIS SCRIPT

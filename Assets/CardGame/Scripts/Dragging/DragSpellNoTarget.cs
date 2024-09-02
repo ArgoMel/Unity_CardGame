@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using DG.Tweening;
 
-public class DragSpellNoTarget: DraggingActions{
-
+public class DragSpellNoTarget: DraggingActions
+{
     private int savedHandSlot;
     private WhereIsTheCardOrCreature whereIsCard;
     private OneCardManager manager;
@@ -32,7 +31,6 @@ public class DragSpellNoTarget: DraggingActions{
 
         whereIsCard.VisualState = VisualStates.Dragging;
         whereIsCard.BringToFront();
-
     }
 
     public override void OnDraggingInUpdate()
@@ -53,9 +51,13 @@ public class DragSpellNoTarget: DraggingActions{
             // Set old sorting order 
             whereIsCard.Slot = savedHandSlot;
             if (tag.Contains("Low"))
+            {
                 whereIsCard.VisualState = VisualStates.LowHand;
+            }
             else
+            {
                 whereIsCard.VisualState = VisualStates.TopHand;
+            }
             // Move this card back to its slot position
             HandVisual PlayerHand = playerOwner.PArea.handVisual;
             Vector3 oldCardPos = PlayerHand.slots.Children[savedHandSlot].transform.localPosition;
@@ -69,6 +71,4 @@ public class DragSpellNoTarget: DraggingActions{
 
         return TableVisual.CursorOverSomeTable; //&& TableNotFull;
     }
-
-
 }

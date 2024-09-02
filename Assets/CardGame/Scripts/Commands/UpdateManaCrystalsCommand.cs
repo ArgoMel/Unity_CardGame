@@ -1,8 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class UpdateManaCrystalsCommand : Command {
-
+﻿public class UpdateManaCrystalsCommand : Command 
+{
     private Player p;
     private int TotalMana;
     private int AvailableMana;

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 
@@ -17,7 +16,7 @@ public class HandVisual : MonoBehaviour
     public Transform PlayPreviewSpot;
 
     // PRIVATE : a list of all card visual representations as GameObjects
-    private List<GameObject> CardsInHand = new List<GameObject>();
+    private List<GameObject> CardsInHand = new();
 
     // ADDING OR REMOVING CARDS FROM HAND
 
@@ -68,9 +67,13 @@ public class HandVisual : MonoBehaviour
     {
         float posX;
         if (CardsInHand.Count > 0)
+        {
             posX = (slots.Children[0].transform.localPosition.x - slots.Children[CardsInHand.Count - 1].transform.localPosition.x) / 2f;
+        }
         else
+        {
             posX = 0f;
+        }
 
         // tween Slots GameObject to new position in 0.3 seconds
         slots.gameObject.transform.DOLocalMoveX(posX, 0.3f);  
@@ -101,21 +104,22 @@ public class HandVisual : MonoBehaviour
         if (c.MaxHealth > 0)
         {
             // this card is a creature card
-            card = GameObject.Instantiate(GlobalSettings.Instance.CreatureCardPrefab, position, Quaternion.Euler(eulerAngles)) as GameObject;
+            card = Instantiate(GlobalSettings.Instance.CreatureCardPrefab, position, Quaternion.Euler(eulerAngles));
         }
         else
         {
             // this is a spell: checking for targeted or non-targeted spell
             if (c.Targets == TargetingOptions.NoTarget)
-                card = GameObject.Instantiate(GlobalSettings.Instance.NoTargetSpellCardPrefab, position, Quaternion.Euler(eulerAngles)) as GameObject;
+            {
+                card = Instantiate(GlobalSettings.Instance.NoTargetSpellCardPrefab, position, Quaternion.Euler(eulerAngles));
+            }
             else
             {
-                card = GameObject.Instantiate(GlobalSettings.Instance.TargetedSpellCardPrefab, position, Quaternion.Euler(eulerAngles)) as GameObject;
+                card = Instantiate(GlobalSettings.Instance.TargetedSpellCardPrefab, position, Quaternion.Euler(eulerAngles));
                 // pass targeting options to DraggingActions
                 DragSpellOnTarget dragSpell = card.GetComponentInChildren<DragSpellOnTarget>();
                 dragSpell.Targets = c.Targets;
             }
-
         }
 
         // apply the look of the card based on the info from CardAsset
@@ -163,7 +167,9 @@ public class HandVisual : MonoBehaviour
             // Debug.Log ("Not fast!!!");
             s.Append(card.transform.DOMove(DrawPreviewSpot.position, GlobalSettings.Instance.CardTransitionTime));
             if (TakeCardsOpenly)
-                s.Insert(0f, card.transform.DORotate(Vector3.zero, GlobalSettings.Instance.CardTransitionTime)); 
+            {
+                s.Insert(0f, card.transform.DORotate(Vector3.zero, GlobalSettings.Instance.CardTransitionTime));
+            }
             //else 
                 //s.Insert(0f, card.transform.DORotate(new Vector3(0f, -179f, 0f), GlobalSettings.Instance.CardTransitionTime)); 
             s.AppendInterval(GlobalSettings.Instance.CardPreviewTime);
@@ -174,8 +180,10 @@ public class HandVisual : MonoBehaviour
         {
             // displace the card so that we can select it in the scene easier.
             s.Append(card.transform.DOLocalMove(slots.Children[0].transform.localPosition, GlobalSettings.Instance.CardTransitionTimeFast));
-            if (TakeCardsOpenly)    
-                s.Insert(0f,card.transform.DORotate(Vector3.zero, GlobalSettings.Instance.CardTransitionTimeFast)); 
+            if (TakeCardsOpenly)
+            {
+                s.Insert(0f, card.transform.DORotate(Vector3.zero, GlobalSettings.Instance.CardTransitionTimeFast));
+            }
         }
 
         s.OnComplete(()=>ChangeLastCardStatusToInHand(card, w));
@@ -186,16 +194,19 @@ public class HandVisual : MonoBehaviour
     {
         //Debug.Log("Changing state to Hand for card: " + card.gameObject.name);
         if (owner == AreaPosition.Low)
+        {
             w.VisualState = VisualStates.LowHand;
+        }
         else
+        {
             w.VisualState = VisualStates.TopHand;
+        }
 
         // set correct sorting order
         w.SetHandSortingOrder();
         // end command execution for DrawACArdCommand
         Command.CommandExecutionComplete();
     }
-
    
     // PLAYING SPELLS
 
@@ -224,6 +235,4 @@ public class HandVisual : MonoBehaviour
                 Destroy(CardVisual);
             });
     }
-
-
 }

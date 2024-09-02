@@ -142,12 +142,21 @@ public class Player : MonoBehaviour, ICharacter
         PlayerID = IDFactory.GetUniqueID();
     }
 
+    // FOR TESTING ONLY
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            DrawACard();
+        }
+    }
+
     public virtual void OnTurnStart()
     {
         // add one mana crystal to the pool;
         Debug.Log("In ONTURNSTART for "+ gameObject.name);
         usedHeroPowerThisTurn = false;
-        ManaThisTurn++;
+        ++ManaThisTurn;
         ManaLeft = ManaThisTurn;
         foreach (CreatureLogic cl in table.CreaturesOnTable)
         {
@@ -172,15 +181,6 @@ public class Player : MonoBehaviour, ICharacter
         bonusManaThisTurn += amount;
         ManaThisTurn += amount;
         ManaLeft += amount;
-    }
-
-    // FOR TESTING ONLY
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            DrawACard();
-        }
     }
 
     // draw a single card from the deck
@@ -243,8 +243,7 @@ public class Player : MonoBehaviour, ICharacter
         {
             // target is a creature
             PlayASpellFromHand(CardLogic.CardsCreatedThisGame[SpellCardUniqueID], CreatureLogic.CreaturesCreatedThisGame[TargetUniqueID]);
-        }
-          
+        }    
     }
 
     // 2nd overload - takes CardLogic and ICharacter interface - 
@@ -288,10 +287,7 @@ public class Player : MonoBehaviour, ICharacter
         // 
         new PlayACreatureCommand(playedCard, this, tablePos, newCreature.UniqueCreatureID).AddToQueue();
         // cause battlecry Effect
-        if (newCreature.effect != null)
-        {
-            newCreature.effect.WhenACreatureIsPlayed();
-        }
+        newCreature.effect?.WhenACreatureIsPlayed();
         // remove this card from hand
         hand.CardsInHand.Remove(playedCard);
         HighlightPlayableCards();
