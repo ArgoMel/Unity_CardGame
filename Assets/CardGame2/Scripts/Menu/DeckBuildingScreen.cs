@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
-public class DeckBuildingScreen : MonoBehaviour {
-
+public class DeckBuildingScreen : MonoBehaviour 
+{
     public GameObject ScreenContent;
     public GameObject ReadyDecksList;
     public GameObject CardsInDeckList;

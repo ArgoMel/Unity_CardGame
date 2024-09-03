@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ManaFilter : MonoBehaviour {
-
+public class ManaFilter : MonoBehaviour 
+{
     public Image[] Crystals;
     public Color32 HighlightedColor = Color.white;
     public Color32 UnactiveColor = Color.gray;
@@ -37,6 +37,8 @@ public class ManaFilter : MonoBehaviour {
     public void RemoveAllFilters()
     {
         foreach (Image i in Crystals)
+        {
             i.color = UnactiveColor;
+        }
     }
 }

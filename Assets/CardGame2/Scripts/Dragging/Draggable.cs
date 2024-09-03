@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using DG.Tweening;
 
 /// <summary>
 /// This class enables Drag and Drop Behaviour for the game object it is attached to. 
@@ -8,16 +7,18 @@ using DG.Tweening;
 /// whether the drop was successful or not.
 /// </summary>
 
-public class Draggable : MonoBehaviour {
-
+public class Draggable : MonoBehaviour 
+{
     public enum StartDragBehavior
     {
-        OnMouseDown, InAwake
+        OnMouseDown, 
+        InAwake
     }
 
     public enum EndDragBehavior
     {
-        OnMouseUp, OnMouseDown
+        OnMouseUp, 
+        OnMouseDown
     }
 
     public StartDragBehavior HowToStart = StartDragBehavior.OnMouseDown;
@@ -54,9 +55,21 @@ public class Draggable : MonoBehaviour {
         }*/
     }
 
+    // Update is called once per frame
+    void Update ()
+    {
+        if (dragging)
+        { 
+            Vector3 mousePos = MouseInWorldCoords();
+            //Debug.Log(mousePos);
+            transform.position = new Vector3(mousePos.x - pointerDisplacement.x, mousePos.y - pointerDisplacement.y, transform.position.z);   
+            da.OnDraggingInUpdate();
+        }
+    }
+
     void OnMouseDown()
     {
-        if (da!=null && da.CanDrag && HowToStart == StartDragBehavior.OnMouseDown)
+        if (da != null && da.CanDrag && HowToStart == StartDragBehavior.OnMouseDown)
         {
             StartDragging();
         }
@@ -71,18 +84,6 @@ public class Draggable : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update ()
-    {
-        if (dragging)
-        { 
-            Vector3 mousePos = MouseInWorldCoords();
-            //Debug.Log(mousePos);
-            transform.position = new Vector3(mousePos.x - pointerDisplacement.x, mousePos.y - pointerDisplacement.y, transform.position.z);   
-            da.OnDraggingInUpdate();
-        }
-    }
-	
     void OnMouseUp()
     {
         if (dragging && HowToEnd == EndDragBehavior.OnMouseUp)
@@ -126,5 +127,4 @@ public class Draggable : MonoBehaviour {
         screenMousePos.z = zDisplacement;
         return Camera.main.ScreenToWorldPoint(screenMousePos);
     }
-        
 }

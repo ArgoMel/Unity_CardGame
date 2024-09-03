@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class TurnOverCardFromPack : MonoBehaviour {
-
+public class TurnOverCardFromPack : MonoBehaviour 
+{
     public Image Glow;
 
     private float InitialScale;
@@ -22,8 +22,9 @@ public class TurnOverCardFromPack : MonoBehaviour {
     void OnMouseDown()
     {
         if (turnedOver)
+        {
             return;
-
+        }
         turnedOver = true;        
         // turn the card over
         transform.DORotate(Vector3.zero, 0.5f);

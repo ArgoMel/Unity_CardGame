@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardsThatYouDoNotHaveToggle : MonoBehaviour {
-
+public class CardsThatYouDoNotHaveToggle : MonoBehaviour 
+{
     private Toggle t;
 
     void Awake()
@@ -19,7 +19,9 @@ public class CardsThatYouDoNotHaveToggle : MonoBehaviour {
 
     public void SetValue (bool val)
     {
-        if (t!=null)
+        if (t != null)
+        {
             t.isOn = val;
+        }
     }
 }

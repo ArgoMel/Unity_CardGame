@@ -11,8 +11,8 @@ public class RarityTradingCost
     public int DisenchantOutcome;
 }
 
-public class CraftingScreen : MonoBehaviour {
-  
+public class CraftingScreen : MonoBehaviour 
+{  
     public static CraftingScreen Instance;
 
     public GameObject Content;
@@ -35,7 +35,9 @@ public class CraftingScreen : MonoBehaviour {
     {
         Instance = this;
         foreach (RarityTradingCost cost in TradingCostsArray)
+        {
             TradingCosts.Add(cost.Rarity, cost);
+        }
     }
 
     public void ShowCraftingScreen(CardAsset cardToShow)
@@ -95,7 +97,7 @@ public class CraftingScreen : MonoBehaviour {
             if (ShopManager.Instance.Dust >= TradingCosts[currentCard.Rarity].CraftCost)
             {
                 ShopManager.Instance.Dust -= TradingCosts[currentCard.Rarity].CraftCost;
-                CardCollection.Instance.QuantityOfEachCard[currentCard]++;
+                ++CardCollection.Instance.QuantityOfEachCard[currentCard];
                 UpdateQuantityOfCurrentCard();
             }
         }
@@ -111,7 +113,7 @@ public class CraftingScreen : MonoBehaviour {
         {
             if (CardCollection.Instance.QuantityOfEachCard[currentCard] > 0)
             {
-                CardCollection.Instance.QuantityOfEachCard[currentCard]--;
+                --CardCollection.Instance.QuantityOfEachCard[currentCard];
                 ShopManager.Instance.Dust += TradingCosts[currentCard.Rarity].DisenchantOutcome;
                 UpdateQuantityOfCurrentCard();
 

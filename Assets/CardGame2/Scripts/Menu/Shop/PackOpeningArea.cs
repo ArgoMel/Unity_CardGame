@@ -5,8 +5,8 @@ using DG.Tweening;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(BoxCollider))]
-public class PackOpeningArea : MonoBehaviour {
-
+public class PackOpeningArea : MonoBehaviour 
+{
     public bool AllowedToDragAPack{ get; set;}
     public GameObject SpellCardFromPackPrefab;
     public GameObject CreatureCardFromPackPrefab;
@@ -59,7 +59,6 @@ public class PackOpeningArea : MonoBehaviour {
         GlowColorsByRarity.Add(RarityOptions.Rare, RareColor);
         GlowColorsByRarity.Add(RarityOptions.Epic, EpicColor);
         GlowColorsByRarity.Add(RarityOptions.Legendary, LegendaryColor);
-
     }
 
     public bool CursorOverArea()
@@ -73,7 +72,9 @@ public class PackOpeningArea : MonoBehaviour {
         {
             // check if the collider that we hit is the collider on this GameObject
             if (h.collider == col)
+            {
                 passedThroughTableCollider = true;
+            }
         }
         return passedThroughTableCollider;
     }
@@ -85,7 +86,7 @@ public class PackOpeningArea : MonoBehaviour {
         // 1) Determine rarity of all cards
         RarityOptions[] rarities = new RarityOptions[SlotsForCards.Length];
         bool AtLeastOneRareGiven = false;
-        for (int i = 0; i < rarities.Length; i++)
+        for (int i = 0; i < rarities.Length; ++i)
         {
             // determine rarity of this card
             float prob = Random.Range(0f,1f);
@@ -105,7 +106,9 @@ public class PackOpeningArea : MonoBehaviour {
                 AtLeastOneRareGiven = true;
             }
             else
+            {
                 rarities[i] = RarityOptions.Common;
+            }
         }
 
         if (AtLeastOneRareGiven == false && giveAtLeastOneRare)
@@ -113,7 +116,7 @@ public class PackOpeningArea : MonoBehaviour {
             rarities[Random.Range(0, rarities.Length)] = RarityOptions.Rare;
         }
 
-        for (int i = 0; i < rarities.Length; i++)
+        for (int i = 0; i < rarities.Length; ++i)
         {
             GameObject card = CardFromPack(rarities[i]);
             CardsFromPackCreated.Add(card);
@@ -132,9 +135,13 @@ public class PackOpeningArea : MonoBehaviour {
 
         GameObject card;
         if (a.TypeOfCard == TypesOfCards.Creature)
+        {
             card = Instantiate(CreatureCardFromPackPrefab) as GameObject;
-        else 
+        }
+        else
+        {
             card = Instantiate(SpellCardFromPackPrefab) as GameObject;
+        }
 
         card.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         OneCardManager manager = card.GetComponent<OneCardManager>();

@@ -29,19 +29,21 @@ public class DragPackOpening : DraggingActions
     }
 
     public override void OnEndDrag()
-    {        
+    {
         // 1) Check if we are holding a card over the table
         if (DragSuccessful())
         {
             // snap the pack to the center of the pack opening area
-            transform.DOMove(ShopManager.Instance.OpeningArea.transform.position, 0.5f).OnComplete(()=>
-                { 
+            transform.DOMove(ShopManager.Instance.OpeningArea.transform.position, 0.5f).OnComplete(() =>
+                {
                     // enable opening on click
                     GetComponent<ScriptToOpenOnePack>().AllowToOpenThisPack();
                 });
         }
         else
+        {
             OnCancelDrag();
+        }
     }
 
     public override void OnCancelDrag()
@@ -58,5 +60,4 @@ public class DragPackOpening : DraggingActions
     {
         return ShopManager.Instance.OpeningArea.CursorOverArea();
     }
-
 }

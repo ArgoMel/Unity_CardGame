@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ListOfDecksInCollection : MonoBehaviour {
-
+public class ListOfDecksInCollection : MonoBehaviour 
+{
     public Transform Content;
     // this is a prefab
     public GameObject DeckInListPrefab;
@@ -37,5 +37,4 @@ public class ListOfDecksInCollection : MonoBehaviour {
             g.transform.localScale = Vector3.one;
         }
     }
-        
 }

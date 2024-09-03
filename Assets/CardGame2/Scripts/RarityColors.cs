@@ -18,8 +18,10 @@ public class RarityColors :MonoBehaviour
 
     void Awake()
     {
-        if (Instance != this && Instance!=null)
+        if (Instance != this && Instance != null)
+        {
             Destroy(Instance.gameObject);
+        }
         Instance = this;
 
         DontDestroyOnLoad(this);

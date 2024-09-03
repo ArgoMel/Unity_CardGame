@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectionBrowser : MonoBehaviour {
-
+public class CollectionBrowser : MonoBehaviour 
+{
     public Transform[] Slots;
     public GameObject SpellMenuPrefab;
     public GameObject CreatureMenuPrefab;
@@ -69,7 +69,8 @@ public class CollectionBrowser : MonoBehaviour {
         }
     }
 
-    private RarityOptions _rarity = RarityOptions.Basic;  // since includeAllRarities is always true, this rarity field will not matter
+    // since includeAllRarities is always true, this rarity field will not matter
+    private RarityOptions _rarity = RarityOptions.Basic;  
     public RarityOptions Rarity 
     {
         get{ return _rarity; }
@@ -204,11 +205,12 @@ public class CollectionBrowser : MonoBehaviour {
         ClearCreatedCards();
 
         if (CardsOnThisPage.Count == 0)
+        {
             return;
-        
+        }
         // Debug.Log(CardsOnThisPage.Count);
 
-        for (int i = 0; i < CardsOnThisPage.Count; i++)
+        for (int i = 0; i < CardsOnThisPage.Count; ++i)
         {
             GameObject newMenuCard;
 
@@ -239,10 +241,11 @@ public class CollectionBrowser : MonoBehaviour {
 
     public void Next()
     {
-        if (PageSelection(_showingCardsPlayerDoesNotOwn, _pageIndex+1,_includeAllRarities, _includeAllCharacters, _rarity,
-            _asset,_keyword,_manaCost, _includeTokenCards).Count == 0)
+        if (PageSelection(_showingCardsPlayerDoesNotOwn, _pageIndex + 1, _includeAllRarities, _includeAllCharacters, _rarity,
+            _asset, _keyword, _manaCost, _includeTokenCards).Count == 0)
+        {
             return;
-        
+        }
         ShowCards(_showingCardsPlayerDoesNotOwn, _pageIndex+1,_includeAllRarities, _includeAllCharacters, _rarity,
             _asset,_keyword,_manaCost, _includeTokenCards);
     }
@@ -250,8 +253,9 @@ public class CollectionBrowser : MonoBehaviour {
     public void Previous()
     {
         if (_pageIndex == 0)
+        {
             return;
-
+        }
         ShowCards(_showingCardsPlayerDoesNotOwn, _pageIndex-1, _includeAllRarities, _includeAllCharacters, _rarity,
             _asset, _keyword, _manaCost, _includeTokenCards);
     }
@@ -274,7 +278,7 @@ public class CollectionBrowser : MonoBehaviour {
             // 1) i < cardsToChooseFrom.Count - pageIndex * Slots.Length checks that we did not run out on cards on the last page 
             // (for example, there are 10 slots on the page, but we only have to show 5 cards) 
             // 2) i < Slots.Length checks that we have reached the limit of cards to display on one page (filled the whole page)
-            for (int i = 0; (i < cardsToChooseFrom.Count - pageIndex * Slots.Length && i < Slots.Length); i++)
+            for (int i = 0; (i < cardsToChooseFrom.Count - pageIndex * Slots.Length && i < Slots.Length); ++i)
             {
                 returnList.Add(cardsToChooseFrom[pageIndex * Slots.Length + i]);
             }

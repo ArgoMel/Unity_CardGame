@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterAssetsByName : MonoBehaviour {
-
+public class CharacterAssetsByName : MonoBehaviour
+{
     public static CharacterAssetsByName Instance;
     private CharacterAsset[] allCharacterAssets; 
     private Dictionary<string, CharacterAsset> AllCharactersDictionary = new Dictionary<string, CharacterAsset>();
@@ -14,15 +14,23 @@ public class CharacterAssetsByName : MonoBehaviour {
         allCharacterAssets = Resources.LoadAll<CharacterAsset>("");
 
         foreach (CharacterAsset ca in allCharacterAssets)
-            if(!AllCharactersDictionary.ContainsKey(ca.name))
+        {
+            if (!AllCharactersDictionary.ContainsKey(ca.name))
+            {
                 AllCharactersDictionary.Add(ca.name, ca);
+            }
+        }
     }
 
     public CharacterAsset GetCharacterByName(string name)
     {
         if (AllCharactersDictionary.ContainsKey(name))
+        {
             return AllCharactersDictionary[name];
+        }
         else
+        {
             return null;
+        }
     }
 }

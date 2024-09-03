@@ -17,8 +17,9 @@ public class CharacterSelectionTabs : MonoBehaviour
         int newIndex = Tabs.IndexOf(tab);
 
         if (newIndex == currentIndex)
+        {
             return;
-
+        }
         currentIndex = newIndex;
 
         // we have selected a new tab
@@ -26,7 +27,9 @@ public class CharacterSelectionTabs : MonoBehaviour
         foreach (CharacterFilterTab t in Tabs)
         {
             if (t != tab)
+            {
                 t.Deselect(instant);
+            }
         }
         // select the tab that we have picked
         tab.Select(instant);

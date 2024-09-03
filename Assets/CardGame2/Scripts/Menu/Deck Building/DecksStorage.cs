@@ -28,14 +28,16 @@ public class DeckInfo
         foreach (CardAsset ca in Cards)
         {
             if (ca == asset)
-                count++;
+            {
+                ++count;
+            }
         }
         return count;
     }
 }
 
-public class DecksStorage : MonoBehaviour {
-
+public class DecksStorage : MonoBehaviour 
+{
     public static DecksStorage Instance;
     public List<DeckInfo> AllDecks { get; set;}  
 
@@ -56,11 +58,16 @@ public class DecksStorage : MonoBehaviour {
         }
     }
 
+    void OnApplicationQuit()
+    {
+        SaveDecksIntoPlayerPrefs();
+    }
+
     void LoadDecksFromPlayerPrefs()
     {
         List<DeckInfo> DecksFound = new List<DeckInfo>();
         // load the information about decks from PlayerPrefsX
-        for(int i=0; i < 9; i++)
+        for(int i=0; i < 9; ++i)
         {
             string deckListKey = "Deck" + i.ToString();
             string characterKey = "DeckHero" + i.ToString();
@@ -93,7 +100,7 @@ public class DecksStorage : MonoBehaviour {
     public void SaveDecksIntoPlayerPrefs()
     {
         // clear all the keys of characters and deck names
-        for(int i=0; i < 9; i++)
+        for(int i=0; i < 9; ++i)
         {
             string characterKey = "DeckHero" + i.ToString();
             string deckNameKey = "DeckName" + i.ToString();
@@ -109,7 +116,7 @@ public class DecksStorage : MonoBehaviour {
             }
         }
 
-        for(int i=0; i< AllDecks.Count; i++)
+        for(int i=0; i< AllDecks.Count; ++i)
         {
             string deckListKey = "Deck" + i.ToString();
             string characterKey = "DeckHero" + i.ToString();
@@ -117,18 +124,14 @@ public class DecksStorage : MonoBehaviour {
 
             List<string> cardNamesList = new List<string>();
             foreach (CardAsset a in AllDecks[i].Cards)
+            {
                 cardNamesList.Add(a.name);
-
+            }
             string[] cardNamesArray = cardNamesList.ToArray();
 
             PlayerPrefsX.SetStringArray(deckListKey, cardNamesArray);
             PlayerPrefs.SetString(deckNameKey, AllDecks[i].DeckName);
             PlayerPrefs.SetString(characterKey, AllDecks[i].Character.name);
         }
-    }
-
-    void OnApplicationQuit()
-    {
-        SaveDecksIntoPlayerPrefs();    
     }
 }

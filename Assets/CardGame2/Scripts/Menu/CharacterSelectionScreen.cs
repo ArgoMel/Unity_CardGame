@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterSelectionScreen : MonoBehaviour {
-
+public class CharacterSelectionScreen : MonoBehaviour
+{
     public GameObject ScreenContent;
     public static CharacterSelectionScreen Instance;
     public HeroInfoPanel HeroPanel;
@@ -20,7 +20,9 @@ public class CharacterSelectionScreen : MonoBehaviour {
     {
         ScreenContent.SetActive(true);
         foreach (PortraitMenu p in AllPortraits)
+        {
             p.Deselect();
+        }
         HeroPanel.SelectCharacter(null);
     }
 
@@ -28,5 +30,4 @@ public class CharacterSelectionScreen : MonoBehaviour {
     {
         ScreenContent.SetActive(false);
     }
-	
 }
