@@ -16,12 +16,17 @@ public enum TargetingOptions
 
 public enum RarityOptions
 {
-    Basic, Common, Rare, Epic, Legendary
+    Basic, 
+    Common, 
+    Rare, 
+    Epic, 
+    Legendary
 }
 
 public enum TypesOfCards
 {
-    Creature, Spell
+    Creature, 
+    Spell
 }
 
 public class CardAsset : ScriptableObject , IComparable<CardAsset>
@@ -41,7 +46,6 @@ public class CardAsset : ScriptableObject , IComparable<CardAsset>
     public int OverrideLimitOfThisCardInDeck = -1;
 
     public TypesOfCards TypeOfCard;
-
 
     [Header("Creature Info")]
     [Range(1, 30)]
@@ -100,5 +104,4 @@ public class CardAsset : ScriptableObject , IComparable<CardAsset>
     {
         return operand1.CompareTo(operand2) <= 0;
     }
-
 }

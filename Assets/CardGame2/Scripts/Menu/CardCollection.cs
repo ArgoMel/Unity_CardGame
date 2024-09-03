@@ -23,25 +23,37 @@ public class CardCollection : MonoBehaviour
         foreach (CardAsset ca in allCardsArray)
         {
             if (!AllCardsDictionary.ContainsKey(ca.name))
+            {
                 AllCardsDictionary.Add(ca.name, ca);
+            }
         }      
 
         LoadQuantityOfCardsFromPlayerPrefs();
     }
 
+    void OnApplicationQuit()
+    {
+        SaveQuantityOfCardsIntoPlayerPrefs();
+    }
+
     private void LoadQuantityOfCardsFromPlayerPrefs()
     {
         // TODO: load only cards from the non-basic set. Basic set should always have quantities set to some standard number, not disenchantable 
-
         foreach (CardAsset ca in allCardsArray)
         {
             // quantity of basic cards should not be affected:
-            if(ca.Rarity == RarityOptions.Basic)
-                QuantityOfEachCard.Add(ca, DefaultNumberOfBasicCards);            
+            if (ca.Rarity == RarityOptions.Basic)
+            {
+                QuantityOfEachCard.Add(ca, DefaultNumberOfBasicCards);
+            }
             else if (PlayerPrefs.HasKey("NumberOf" + ca.name))
+            {
                 QuantityOfEachCard.Add(ca, PlayerPrefs.GetInt("NumberOf" + ca.name));
+            }
             else
+            {
                 QuantityOfEachCard.Add(ca, 0);
+            }
         }
     }
 
@@ -50,23 +62,24 @@ public class CardCollection : MonoBehaviour
         foreach (CardAsset ca in allCardsArray)
         {
             if (ca.Rarity == RarityOptions.Basic)
+            {
                 PlayerPrefs.SetInt("NumberOf" + ca.name, DefaultNumberOfBasicCards);
+            }
             else
+            {
                 PlayerPrefs.SetInt("NumberOf" + ca.name, QuantityOfEachCard[ca]);
+            }
         }
     }
 
-    void OnApplicationQuit()
-    {
-        SaveQuantityOfCardsIntoPlayerPrefs();
-    }
-
     public CardAsset GetCardAssetByName(string name)
-    {        
+    {
         if (AllCardsDictionary.ContainsKey(name))  // if there is a card with this name, return its CardAsset
+        {
             return AllCardsDictionary[name];
-        else        // if there is no card with name
-            return null;
+        }
+        // if there is no card with name
+        return null;
     }	
 
     public List<CardAsset> GetCardsOfCharacter(CharacterAsset asset)
@@ -97,7 +110,6 @@ public class CardCollection : MonoBehaviour
         return returnList;
         */
         return GetCards(true, false, true, rarity);
-
     }
 
     /// the most general method that will use multiple filters
@@ -108,25 +120,34 @@ public class CardCollection : MonoBehaviour
         var cards = from card in allCardsArray select card;
 
         if (!showingCardsPlayerDoesNotOwn)
+        {
             cards = cards.Where(card => QuantityOfEachCard[card] > 0);
-
+        }
         if (!includeTokenCards)
+        {
             cards = cards.Where(card => card.TokenCard == false);
-
+        }
         if (!includeAllRarities)
+        {
             cards = cards.Where(card => card.Rarity == rarity);
-
+        }
         if (!includeAllCharacters)
+        {
             cards = cards.Where(card => card.CharacterAsset == asset);
-
+        }
         if (keyword != null && keyword != "")
-            cards = cards.Where(card => (card.name.ToLower().Contains(keyword.ToLower()) || 
+        {
+            cards = cards.Where(card => (card.name.ToLower().Contains(keyword.ToLower()) ||
                 (card.Tags.ToLower().Contains(keyword.ToLower()) && !keyword.ToLower().Contains(" "))));
-
+        }
         if (manaCost == 7)
+        {
             cards = cards.Where(card => card.ManaCost >= 7);
+        }
         else if (manaCost != -1)
-            cards = cards.Where(card => card.ManaCost == manaCost);                
+        {
+            cards = cards.Where(card => card.ManaCost == manaCost);
+        }
         
         var returnList = cards.ToList<CardAsset>();
         returnList.Sort();

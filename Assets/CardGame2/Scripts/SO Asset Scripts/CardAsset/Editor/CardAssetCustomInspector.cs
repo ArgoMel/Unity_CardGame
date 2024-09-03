@@ -25,10 +25,10 @@ public class CardAssetCustomInspector : Editor
     SpecialCreatureAmount_prop ,
     SpellScriptName_prop,
     SpecialSpellAmount_prop,
-    Targets_prop
-    ;
+    Targets_prop;
 
-    void OnEnable () {
+    void OnEnable () 
+    {
         // Setup the SerializedProperties
 
         // all the common general fields
@@ -55,10 +55,10 @@ public class CardAssetCustomInspector : Editor
         SpellScriptName_prop = serializedObject.FindProperty ("SpellScriptName");
         SpecialSpellAmount_prop = serializedObject.FindProperty ("SpecialSpellAmount");
         Targets_prop = serializedObject.FindProperty ("Targets");
-    
     }
 
-    public override void OnInspectorGUI() {
+    public override void OnInspectorGUI()
+    {
         serializedObject.Update ();
 
         EditorGUILayout.PropertyField( CharacterAsset_prop );
@@ -70,7 +70,6 @@ public class CardAssetCustomInspector : Editor
         EditorGUILayout.PropertyField( TokenCard_prop );
         EditorGUILayout.PropertyField( OverrideLimit_prop);
         EditorGUILayout.PropertyField( TypeOfCard_prop );
-
 
         TypesOfCards st = (TypesOfCards) TypeOfCard_prop.enumValueIndex;
 
@@ -94,6 +93,5 @@ public class CardAssetCustomInspector : Editor
         }
 
         serializedObject.ApplyModifiedProperties ();
-    }
-	
+    }	
 }
