@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class DeckSelectionScreen : MonoBehaviour {
-
+public class DeckSelectionScreen : MonoBehaviour
+{
     public GameObject ScreenContent;
     public DeckIcon[] DeckIcons;
     public HeroInfoPanel HeroPanelDeckSelection;
@@ -34,7 +33,7 @@ public class DeckSelectionScreen : MonoBehaviour {
             icon.InstantDeselect();
         }
 
-        for (int j = 0; j < DecksStorage.Instance.AllDecks.Count; j++)
+        for (int j = 0; j < DecksStorage.Instance.AllDecks.Count; ++j)
         {
             DeckIcons[j].ApplyLookToIcon(DecksStorage.Instance.AllDecks[j]);
             DeckIcons[j].gameObject.SetActive(true);

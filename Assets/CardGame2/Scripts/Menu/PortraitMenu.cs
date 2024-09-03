@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class PortraitMenu : MonoBehaviour {
-
+public class PortraitMenu : MonoBehaviour 
+{
     public CharacterAsset asset;
     private PlayerPortraitVisual portrait;
     private float InitialScale;
@@ -30,8 +30,12 @@ public class PortraitMenu : MonoBehaviour {
             // deselect all the other Portrait Menu buttons 
             PortraitMenu[] allPortraitButtons = GameObject.FindObjectsOfType<PortraitMenu>();
             foreach (PortraitMenu m in allPortraitButtons)
+            {
                 if (m != this)
+                {
                     m.Deselect();
+                } 
+            }
         }
         else
         {

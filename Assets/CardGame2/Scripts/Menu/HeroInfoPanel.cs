@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HeroInfoPanel : MonoBehaviour {
-
+public class HeroInfoPanel : MonoBehaviour 
+{
     public PlayerPortraitVisual portrait;
     public Button PlayButton;
     public Button BuildDeckButton;
@@ -28,8 +28,10 @@ public class HeroInfoPanel : MonoBehaviour {
         {
             portrait.gameObject.SetActive(false);
             selectedPortrait = null;
-            if (BuildDeckButton!=null)
+            if (BuildDeckButton != null)
+            {
                 BuildDeckButton.interactable = false;
+            }
         }
         else
         {            
@@ -37,8 +39,10 @@ public class HeroInfoPanel : MonoBehaviour {
             portrait.ApplyLookFromAsset();
             portrait.gameObject.SetActive(true);
             selectedPortrait = menuPortrait;
-            if (BuildDeckButton!=null)
+            if (BuildDeckButton != null)
+            {
                 BuildDeckButton.interactable = true;
+            }
         }
     }
 
@@ -48,8 +52,10 @@ public class HeroInfoPanel : MonoBehaviour {
         {
             portrait.gameObject.SetActive(false);
             selectedDeck = null;
-            if (PlayButton!=null)
+            if (PlayButton != null)
+            {
                 PlayButton.interactable = false;
+            }
         }
         else
         {           
@@ -60,8 +66,10 @@ public class HeroInfoPanel : MonoBehaviour {
             // instantly load this information to our BattleStartInfo.
             BattleStartInfo.SelectedDeck = selectedDeck.DeckInformation;
 
-            if (PlayButton!=null)
+            if (PlayButton != null)
+            {
                 PlayButton.interactable = true;
+            }
         }
     }
 
@@ -70,9 +78,9 @@ public class HeroInfoPanel : MonoBehaviour {
     public void GoToDeckbuilding()
     {
         if (selectedPortrait == null)
+        {
             return;
-
+        }
         DeckBuildingScreen.Instance.BuildADeckFor(selectedPortrait.asset);
     }
-        
 }

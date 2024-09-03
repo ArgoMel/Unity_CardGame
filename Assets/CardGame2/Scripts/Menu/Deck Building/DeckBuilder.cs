@@ -25,15 +25,25 @@ public class DeckBuilder : MonoBehaviour
         DeckCompleteFrame.GetComponent<Image>().raycastTarget = false;
     }
 
+    void OnApplicationQuit()
+    {
+        // if we exit the app while editing a deck, we want to save it anyway
+        DoneButtonHandler();
+    }
+
     public void AddCard(CardAsset asset)
     {
         // if we are browsing the collection
         if (!InDeckBuildingMode)
+        {
             return;
+        }
 
         // if the deck is already full 
         if (deckList.Count == AmountOfCardsInDeck)
+        {
             return;
+        }
 
         int count = NumberOfThisCardInDeck(asset);
 
@@ -41,8 +51,9 @@ public class DeckBuilder : MonoBehaviour
 
         // if something else is specified in the CardAsset, we use that.
         if (asset.OverrideLimitOfThisCardInDeck > 0)
+        {
             limitOfThisCardInDeck = asset.OverrideLimitOfThisCardInDeck;
-
+        }
         if (count < limitOfThisCardInDeck)
         {
             deckList.Add(asset);
@@ -50,7 +61,7 @@ public class DeckBuilder : MonoBehaviour
             CheckDeckCompleteFrame();
 
             // added one to count if we are adding this card
-            count++;
+            ++count;
 
             // do all the graphical stuff
             if (ribbons.ContainsKey(asset))
@@ -82,7 +93,9 @@ public class DeckBuilder : MonoBehaviour
         foreach (CardAsset ca in deckList)
         {
             if (ca == asset)
-                count++;
+            {
+                ++count;
+            }
         }
         return count;
     }
@@ -137,11 +150,5 @@ public class DeckBuilder : MonoBehaviour
         DecksStorage.Instance.SaveDecksIntoPlayerPrefs();
         // the screen with collection and pre-made decks is loaded by calling other methods on this button
         DeckBuildingScreen.Instance.ShowScreenForCollectionBrowsing();
-    }
-
-    void OnApplicationQuit()
-    {
-        // if we exit the app while editing a deck, we want to save it anyway
-        DoneButtonHandler();
     }
 }

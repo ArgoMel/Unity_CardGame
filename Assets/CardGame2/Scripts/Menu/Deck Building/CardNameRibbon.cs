@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardNameRibbon : MonoBehaviour {
-
+public class CardNameRibbon : MonoBehaviour 
+{
     public Text NameText;
     public Text QuantityText;
     public Image RibbonImage;
@@ -15,8 +15,9 @@ public class CardNameRibbon : MonoBehaviour {
     public void ApplyAsset(CardAsset ca, int quantity)
     {
         if (ca.CharacterAsset != null)
+        {
             RibbonImage.color = ca.CharacterAsset.ClassCardTint;
-
+        }
         Asset = ca;
 
         NameText.text = ca.name;
@@ -26,8 +27,9 @@ public class CardNameRibbon : MonoBehaviour {
     public void SetQuantity(int quantity)
     {
         if (quantity == 0)
+        {
             return;
-        
+        }
         QuantityText.text ="X" + quantity.ToString();
         Quantity = quantity;
     }

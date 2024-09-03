@@ -21,6 +21,35 @@ public class DeckIcon : MonoBehaviour
         InitialScale = transform.localScale.x;
     }
 
+    void OnMouseDown()
+    {
+        // show the animation
+        if (!selected)
+        {
+            selected = true;
+            // zoom in on the deck only if it is complete
+            if (DeckInformation.IsComplete())
+            {
+                transform.DOScale(TargetScale, 0.5f);
+            }
+            DeckSelectionScreen.Instance.HeroPanelDeckSelection.SelectDeck(this);
+            // deselect all the other Portrait Menu buttons 
+            DeckIcon[] allPortraitButtons = GameObject.FindObjectsOfType<DeckIcon>();
+            foreach (DeckIcon m in allPortraitButtons)
+            {
+                if (m != this)
+                {
+                    m.Deselect();
+                }
+            }
+        }
+        else
+        {
+            Deselect();
+            DeckSelectionScreen.Instance.HeroPanelDeckSelection.SelectDeck(null);
+        }
+    }
+
     public void ApplyLookToIcon(DeckInfo info)
     {
         DeckInformation = info;
@@ -31,30 +60,6 @@ public class DeckIcon : MonoBehaviour
         portrait.charAsset = info.Character;
         portrait.ApplyLookFromAsset();
         DeckNameText.text = info.DeckName;
-    }
-
-    void OnMouseDown()
-    {
-        // show the animation
-        if (!selected)
-        {
-            selected = true;
-            // zoom in on the deck only if it is complete
-            if (DeckInformation.IsComplete())
-                transform.DOScale(TargetScale, 0.5f);
-
-            DeckSelectionScreen.Instance.HeroPanelDeckSelection.SelectDeck(this);
-            // deselect all the other Portrait Menu buttons 
-            DeckIcon[] allPortraitButtons = GameObject.FindObjectsOfType<DeckIcon>();
-            foreach (DeckIcon m in allPortraitButtons)
-                if (m != this)
-                    m.Deselect();
-        }
-        else
-        {
-            Deselect();
-            DeckSelectionScreen.Instance.HeroPanelDeckSelection.SelectDeck(null);
-        }
     }
 
     public void Deselect()
